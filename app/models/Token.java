@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 
 @Entity
 public class Token {
-    public static String TABLE = Employee.class.getSimpleName();
+    public static String TABLE = Token.class.getSimpleName();
 
     @Id
     @Column(name = "ACCESS_TOKEN")

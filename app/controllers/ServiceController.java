@@ -26,7 +26,7 @@ public class ServiceController  extends ExtendedController {
         Service service=ServiceService.find(form.get("serviceID"));
         if(service.secretKey.equals(form.get("secretKey")))
         {
-            return jsonResult(ok(TokenService.createToken(service)));
+            return ok200(Token.class,TokenService.createToken(service));
         }
         return unauthorized();
     }

@@ -8,6 +8,8 @@ package security;///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 
+import models.Token;
+import models.service.TokenService;
 import play.libs.F;
 import play.mvc.Action;
 import play.mvc.Http;
@@ -26,6 +28,10 @@ public class AuthorizeAction extends Action<Authorize> {
             return F.Promise.pure(unauthorized());
         else
             token=token.substring(7);
+        Token tokenModel= TokenService.get(token);
+        if(tokenModel==null)
+            return F.Promise.pure(unauthorized());
+        ctx.args.put("service",tokenModel.service);
         return delegate.call(ctx);
     }
 }

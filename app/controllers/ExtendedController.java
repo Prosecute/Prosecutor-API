@@ -9,8 +9,18 @@ package controllers;
 ///////////////////////////////////////////////////////////////////////////////
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.ObjectArrayDeserializer;
+import models.Service;
+import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.StringWriter;
 
 public abstract class ExtendedController extends Controller{
 
@@ -22,9 +32,36 @@ public abstract class ExtendedController extends Controller{
         response().setContentType("application/xml; charset=utf-8");
         return httpResponse;
     }
-
-    protected Integer serviceTableID()
+    protected Result ok200(Class clazz,Object object)
     {
-        return (Integer)ctx().args.get("serviceTableID");
+        if(ctx().request().accepts("application/xml"))
+            try {
+                return xmlResult(ok(toXML(clazz,object)));
+            } catch (JAXBException e) {
+                return internalServerError();
+            }
+        if(ctx().request().accepts("application/xml"))
+            return jsonResult(ok(toJson(object)));
+        return ok(object.toString());
     }
+
+    protected Service getCtxService()
+    {
+        return (Service)ctx().args.get("service");
+    }
+
+    protected JsonNode toJson(Object object)
+    {
+        return Json.toJson(object);
+    }
+    protected String toXML(Class clazz,Object object) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        StringWriter sw = new StringWriter();
+        jaxbMarshaller.marshal(object, sw);
+        return sw.toString();
+    }
+
+
 }

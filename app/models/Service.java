@@ -16,12 +16,14 @@ import java.util.List;
 
 @Entity
 public class Service {
-    public static String TABLE = Employee.class.getSimpleName();
+    public static String TABLE = Service.class.getSimpleName();
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     public Integer id;
 
+    @OneToMany
+    public List<Minimalist> minimalists;
 
     @Constraints.Required
     public String serviceID;
@@ -32,4 +34,8 @@ public class Service {
     @OneToMany
     public List<Token> tokens;
 
+    @Override
+    public String toString() {
+        return id+"";
+    }
 }

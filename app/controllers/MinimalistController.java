@@ -9,29 +9,41 @@ package controllers;
 ///////////////////////////////////////////////////////////////////////////////
 
 
+import models.Enums;
+import models.Minimalist;
+import models.service.MinimalistService;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import security.Authorize;
 
 public class MinimalistController extends ExtendedController {
 
     @Transactional(readOnly = true)
+    @Authorize("minimalist.read")
     public Result list()
     {
-
+        return ok200(Minimalist.MinimalistList.class,new Minimalist.MinimalistList(getCtxService().minimalists));
     }
     @Transactional(readOnly = false)
+    @Authorize("minimalist.write")
     public Result create()
     {
-
+        Minimalist minimalist=new Minimalist();
+        minimalist.service=getCtxService();
+        minimalist.type= Enums.TrialName.Java;
+        minimalist=MinimalistService.create(minimalist);
+        return ok200(Minimalist.class,minimalist);
     }
 
     @Transactional(readOnly = true)
+    @Authorize("minimalist.read")
     public Result get(Integer id)
     {
-
+        return ok200(Minimalist.class,MinimalistService.get(id));
     }
     @Transactional(readOnly = false)
+    @Authorize("minimalist.write")
     public Result remove(Integer id)
     {
 
