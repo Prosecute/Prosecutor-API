@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,12 +24,16 @@ public class Minimalist {
     public static String TABLE = Minimalist.class.getSimpleName();
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "MINIMALIST_ID")
+    @Column(name = "minimalist_id")
     @XmlAttribute(name = "id")
     public Integer id;
 
-    @JoinColumn(name = "SERVICE_ID")
+    @Column(name = "service_id")
+    @Id
+    @JsonIgnore
+    public Integer service_id;
+
+    @JoinColumn(name = "service_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     public Service service;
@@ -57,6 +62,12 @@ public class Minimalist {
         {
             this.minimalists=minimalists;
         }
+    }
+
+    @Embeddable
+    public static class MinimalistPK
+    {
+
     }
 }
 

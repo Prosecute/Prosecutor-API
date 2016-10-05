@@ -9,13 +9,18 @@ package controllers;
 ///////////////////////////////////////////////////////////////////////////////
 
 
+import models.Entity;
 import models.Enums;
 import models.Minimalist;
+import models.service.EntityService;
 import models.service.MinimalistService;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import security.Authorize;
+
+import java.nio.file.Path;
 
 public class MinimalistController extends ExtendedController {
 
@@ -40,18 +45,37 @@ public class MinimalistController extends ExtendedController {
     @Authorize("minimalist.read")
     public Result get(Integer id)
     {
-        return ok200(Minimalist.class,MinimalistService.get(id));
+        Minimalist minimalist=MinimalistService.get(id);
+        if(minimalist!=null)
+            return ok200(Minimalist.class,minimalist);
+        else
+            return notFound();
     }
     @Transactional(readOnly = false)
     @Authorize("minimalist.write")
     public Result remove(Integer id)
     {
-
+        Minimalist minimalist=MinimalistService.get(id);
+        if(minimalist==null)
+            return notFound();
+        MinimalistService.remove(minimalist);
     }
 
     public Result uploadEntity(Integer id)
     {
-
+        Minimalist minimalist=MinimalistService.get(id);
+        if(minimalist==null)
+            return notFound();
+        Http.MultipartFormData md=request().body().asMultipartFormData();
+        Entity entity=new Entity();
+        EntityService.create(entity);
+        Path path=MinimalistService.getLocalStorage(entity,minimalist);
+        for(Http.MultipartFormData.FilePart file:md.getFiles())
+        {
+            Path p=path.resolve(file.getFilename());
+            file.getFile().renameTo(p.toFile());
+        }
+        return ok200(Entity.class,entity);
     }
 
     public Result listEntities(Integer id)

@@ -9,12 +9,17 @@ package models.service;
 ///////////////////////////////////////////////////////////////////////////////
 
 
-import play.mvc.Http;
+import models.Entity;
+import models.dao.EntityDAO;
 
-public abstract class Service {
+import java.nio.file.Path;
 
-    protected static models.Service getCtxService()
+public class EntityService extends Service {
+
+    public static Entity create(Entity entity)
     {
-        return (models.Service) Http.Context.current().args.get("service");
+        entity.service=getCtxService();
+        entity.service_id=getCtxService().id;
+        return EntityDAO.create(entity);
     }
 }
