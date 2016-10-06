@@ -53,7 +53,7 @@ public class MinimalistController extends ExtendedController {
     }
     @Transactional(readOnly = false)
     @Authorize("minimalist.write")
-    public Result remove(Integer id)
+    public Result delete(Integer id)
     {
         Minimalist minimalist=MinimalistService.get(id);
         if(minimalist==null)

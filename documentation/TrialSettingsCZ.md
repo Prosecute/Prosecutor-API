@@ -1,0 +1,4 @@
+#Nastavení trial testování
+
+
+## Minimalist
