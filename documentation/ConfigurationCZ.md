@@ -1,12 +1,11 @@
-# Konfigurace
 | Nasazení |
 | -------- |
 | 1. [Předpoklady](PrerequirmentsCZ.md) |
 | 2. [Kompilace](CompileCZ.md) |
 | 2. [Instalace](InstallCZ.md) |
 | 3. **Konfigurace** |
-| |
 |[Hlavní strana](../READMECZ.md)|
+# Konfigurace
 
 
 ## Konfigurace serveru

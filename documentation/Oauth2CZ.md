@@ -1,12 +1,16 @@
 # Autentizace a Autorizace
-Pro autentizace a autorizaci služba využívá Oauth2 s client creditals grant typem. Více informací [zde](https://bshaffer.github.io/oauth2-server-php-docs/grant-types/client-credentials/). 
+| | |
+| - | - |
+| **Standart:** | Oauth2 |
+| **Typ:** | Client_credentials |
+| **Druh tokenu:** | Bearer |
+| **Životnost tokenu:** | 1 hodina |
 
-### Service
-Service služí jako root přístup do služby. 
-### Service user
+Pro autentizace a autorizaci služba využívá Oauth2 s client credentials grant typem. Více informací [zde](https://bshaffer.github.io/oauth2-server-php-docs/grant-types/client-credentials/). 
 
 
-## Oauth 2 Scopes
+
+## Oauth 2 Scopes list
 ### Společné Scopes
 | ID | Popis |
 | ---- | ----------- |

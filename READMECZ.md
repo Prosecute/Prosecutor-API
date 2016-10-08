@@ -30,18 +30,17 @@ Prosecutor API je REST služba pro poskytování centrálního antiplagiátorsk�
  * snapshot - funkční snapshot develop branche, nicnémě nemusí být stabilní
 
 ## Nasazení Prosecutor API
-### Předpoklady
- * Java 8
- * MySQL nebo PostgreSQL
- * SSL Certifikát pro https
-
-
-### Kompilace
-### Instalace
-### Configurace
+ 1. [Předpoklady](documentation/cz/deploy/PREREQUIREMENTS.md)
+ 2. [Kompilace](documentation/cz/deploy/COMPILE.md)
+ 3. [Instalace](documentation/cz/deploy/INSTALL.md)
+ 4. [Konfigurace](documentation/cz/deploy/CONFIGURATION.md)
 
 ## Implementace API
- 
+ 1. [Začínáme](documentation/cz/api/GETTING_STARTED.md)
+ 2. [Autentizace a Autorizace](documentation/cz/api/OAUTH2.md)
+ 3. [Minimalist API](documentation/cz/api/MINIMALIST.md)
+   1. t
+ 4. [Enterprise API](documentation/cz/api/ENTERPRISE.md)
 
 
 ## Slovníček pojmů
