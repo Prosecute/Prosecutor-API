@@ -1,8 +1,9 @@
 > **Ve vývoji**
 
-## Language
- * [Czech](READMECZ.md)
- * [English](README.md)
+### Language
+**[Czech](READMECZ.md)** | [English](README.md)
+
+
 # Prosecutor API
 Prosecutor API je REST služba pro poskytování centrálního antiplagiátorského řešení. K samotnému testování využívá podsystém barrister. Nicméně testy lze provádět i přes JPlag či Moss. V tomto případě ale funguje pouze v [minimalist]() a dodává html výstup, nikoliv xml/json data.
 
