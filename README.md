@@ -5,9 +5,9 @@
 
 | API validation |
 | -------- |
-| [![API validation](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Prosecute/Prosecutor-API/master/documentation/swagger/swagger.yaml)](https://prosecute.github.io/Swagger/)| 
+| [![API validation](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Prosecute/Prosecutor-API/master/documentation/swagger/swagger.yaml&.png)](https://prosecute.github.io/Swagger/)| 
 
 > **In development**
 
 
-* [Swagger documentation (EN)]()
+* [Swagger documentation (EN)](https://prosecute.github.io/Swagger/)
