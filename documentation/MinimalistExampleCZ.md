@@ -3,7 +3,7 @@
 ```
 GET       {API_URL}/service/token - Získání authentikačního tokenu.
 POST      {API_URL}/minimalist - Vytvoření minimalist a získání jeho id.
-PUT       {API_URL}/minimalist/{ID}/testSettings?category=sourcecode&name=java&version=1.8&mode=tokencompare - Nastavení testu. *
+PUT       {API_URL}/minimalist/{ID}/settings?category=sourcecode&name=java&version=1.8&mode=tokencompare - Nastavení testu. *
 POST      {API_URL}/minimalist/{ID}/uploadEntity - Vytvoření entity a náhrání jejich dat. Vrací id entity. **
 POST      {API_URL}/minimalist/{ID}/compareAgainst?id={OTHER_ID} - Přidá testování oproti jinému minimalist objektu.
 GET       {API_URL}/minimalist/{ID}/run - Spuštění testu. ***
