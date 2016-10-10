@@ -48,7 +48,7 @@ definitions:
       content:
         type: array
         items:
-          $ref: '#/definitions/URN'
+          $ref: '#/definitions/Urn'
     example:
       isFolder: true
       value: 'test'
