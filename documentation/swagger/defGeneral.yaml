@@ -1,0 +1,24 @@
+definitions:
+  ObjectID:
+    type: integer
+    format: 'int32'
+    minimum: 0
+  ObjectName:
+    type: string
+    maxLenght: 256
+  Metadata:
+    type: object
+    properties:
+      name:
+        type: string
+        xml:
+          attribute: true
+      value:
+        type: string
+        xml:
+          attribute: true
+    xml:
+      name: metadata
+    example:
+      name: "sentDate"
+      value: "20.3.2016"

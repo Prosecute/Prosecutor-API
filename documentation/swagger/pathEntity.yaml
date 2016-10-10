@@ -1,0 +1,483 @@
+paths:
+  EntityDef:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+    post:
+      summary: 'Create new entity in group.'
+      operationId: createEntity
+      tags:
+        - Entity
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          required: false
+          description: 'Name of entity.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            $ref: 'defEntity.yaml#/definitions/Entity'
+          examples:
+              - entity:
+                  name: 'Jack Walter'
+                  id: 5
+    get:
+      summary: 'List all entities in group.'
+      operationId: listEntity
+      tags:
+        - Entity
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defEntity.yaml#/definitions/Entity'
+            xml:
+              wrapped: true
+              name: entities
+          examples:
+              - entity:
+                  name: 'Jack Walter'
+              - entity:
+                  name: 'George Lenny'
+  Entity:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+      - name: entity_ID
+        type: integer
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Find Entity by ID.'
+      operationId: getEntity
+      tags:
+        - Entity
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Remove Entity by ID.'
+      operationId: removeEntity
+      tags:
+        - Entity
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  EntityFile:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+      - name: entity_ID
+        type: integer
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    head:
+      summary: 'Return head of file by URN'
+      operationId: headFile
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: true
+          description: 'URN of File.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    get:
+      summary: 'Download file by URN'
+      operationId: downloadFile
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: true
+          description: 'URN of File.'
+      produces:
+       - application/octet-stream
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: file
+    post:
+      summary: 'Upload single file'
+      operationId: uploadSingleFile
+      tags:
+        - File managment
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: false
+          description: 'URN of File.'
+        - name: file
+          in: formData
+          type: file
+          required: true
+          description: 'File'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Remove file by URN'
+      operationId: removeSingleFile
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: false
+          description: 'URN of File.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Replace or upload file by URN'
+      operationId: replaceSingleFile
+      tags:
+        - File managment
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: false
+          description: 'URN of File.'
+        - name: file
+          in: formData
+          type: file
+          required: true
+          description: 'File'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  EntityDirectory:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+      - name: entity_ID
+        type: integer
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Return content of directory specified by URN'
+      operationId: directoryContent
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: false
+          description: 'URN of Directory. Default: Root directory'
+        - name: recursive
+          in: query
+          type: boolean
+          default: false
+          description: 'Return content of all subdirectories. Default: false'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            $ref: 'defEntity.yaml#/definitions/Urn'
+    post:
+      summary: 'Create new directory.'
+      operationId: createDirectory
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: true
+          description: 'URN of Directory.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    patch:
+      summary: 'Move directory'
+      operationId: moveDirectory
+      tags:
+        - File managment
+      parameters:
+        - name: urnFrom
+          in: query
+          type: string
+          required: true
+          description: 'Move from this URN.'
+        - name: urnTo
+          in: query
+          type: string
+          required: true
+          description: 'Move to this URN.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Copy&paste directory'
+      operationId: copyDirectory
+      tags:
+        - File managment
+      parameters:
+        - name: urnFrom
+          in: query
+          type: string
+          required: true
+          description: 'Copy from this URN.'
+        - name: urnTo
+          in: query
+          type: string
+          required: true
+          description: 'Paste to this URN.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Remove directory'
+      operationId: removeDirectory
+      tags:
+        - File managment
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: true
+          description: 'URN of Directory.'
+        - name: recursive
+          in: query
+          type: boolean
+          required: true
+          description: 'False: remove only empty directory. True: remove directory and its contents.'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  EntityUpload:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+      - name: entity_ID
+        type: integer
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    post:
+      summary: 'Upload files to directory specified by URN'
+      description: 'Wont work in swagger ui.'
+      operationId: uploadMultipleFiles
+      tags:
+        - File managment
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: urn
+          in: query
+          type: string
+          required: false
+          description: 'URN of Directory.'
+        - name: files
+          in: formData
+          type: array
+          items:
+            type: file
+          required: true
+          description: 'Files'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+
+
+
+
+
+
+
+

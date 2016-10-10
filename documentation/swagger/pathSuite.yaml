@@ -1,0 +1,110 @@
+paths:
+  SuiteDef:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all suites in solution.'
+      operationId: listSuite
+      tags:
+        - Suite
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: '#definitions/Suite'
+            xml:
+              wrapped: true
+              name: suites
+    post:
+      summary: 'Create new suite'
+      operationId: createSuite
+      tags:
+        - Suite
+      parameters:
+        - in: query
+          name: formData
+          required: false
+          maxLength: 256
+          description: 'Desired name for suite. (optional)'
+          $ref: 'defGeneral.yaml#/definitions/ObjectName'
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  Suite:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: suite_id
+        type: integer
+        in: path
+        description: 'ID of suite.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Find Suite by ID'
+      operationId: getSuite
+      tags:
+        - Suite
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            $ref: '#definitions/Suite'
+
+
+definitions:
+  Suite:
+    type: object
+    properties:
+      suite_id:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectID'
+         -  xml:
+              attribute: true
+      solution_id:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectID'
+         -  xml:
+              attribute: true
+      name:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectName'
+         - xml:
+            attribute: true
+    xml:
+      name: suite

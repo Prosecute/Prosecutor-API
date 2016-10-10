@@ -1,0 +1,142 @@
+paths:
+  SolutionCreate:
+    post:
+      summary: 'Create new solution and return its configuration.'
+      operationId: createSolution
+      security:
+        - ServiceAuth:
+          - 'auth'
+          - 'write:solution'
+      tags:
+        - Solution
+      parameters:
+        - in: formData
+          name: name
+          required: false
+          maxLength: 256
+          description: 'Desired name for solution. (optional)'
+          $ref: 'defGeneral.yaml#/definitions/ObjectName'
+      responses:
+        '200':
+          description: 'Successful operation.'
+          schema:
+            $ref: 'defSolution.yaml#/definitions/Solution'
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+  SolutionList:
+    get:
+      summary: 'List all solutions belonging to a service.'
+      operationId: listSolutions
+      tags:
+        - Solution
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defSolution.yaml#/definitions/Solution'
+            xml:
+              wrapped: true
+              name: solutions
+          examples:
+              - solution:
+                  name: 'A07B01JAVA - Plagiarism check for programming homeworks.'
+                  id: 52
+              - solution:
+                  name: 'A07B14CPP - Plagiarism check for programming homeworks.'
+                  id: 53
+  Solution:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Find solution by ID.'
+      operationId: getSolution
+      tags:
+        - Solution
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        '200':
+          description: 'Successful operation.'
+          schema:
+              $ref: 'defSolution.yaml#/definitions/Solution'
+    put:
+      summary: 'Update solution by ID.'
+      operationId: updateSolution
+      tags:
+        - Solution
+      parameters:
+        - name: body
+          in: body
+          description: Solution object
+          schema:
+              $ref: 'defSolution.yaml#/definitions/Solution'
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Delete solution by ID.'
+      operationId: deleteSolution
+      tags:
+        - Solution
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'

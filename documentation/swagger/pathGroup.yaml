@@ -1,0 +1,150 @@
+paths:
+  GroupCreate:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+    post:
+      summary: 'Create new group in solution.'
+      operationId: createGroup
+      tags:
+        - Group
+      parameters:
+        - in: body
+          name: Group
+          schema:
+            $ref: 'defSolution.yaml#/definitions/Group'
+      responses:
+        '200':
+          description: 'Successful operation.'
+          schema:
+            $ref: 'defSolution.yaml#/definitions/Group'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+  GroupList:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'List all groups in solution.'
+      operationId: listGroups
+      tags:
+        - Group
+      responses:
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defSolution.yaml#/definitions/Group'
+            xml:
+              wrapped: true
+              name: groups
+          examples:
+              - group:
+                  name: 'Parallel 2015/2016'
+              - group:
+                  name: 'Parallel 2016/2015'
+  Group:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Find group by IDs.'
+      operationId: getGroup
+      tags:
+        - Group
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        200:
+          description: 'Successful operation.'
+          schema:
+              $ref: 'defSolution.yaml#/definitions/Group'
+          examples:
+            name: 'Parallel 2015/2016'
+    put:
+      summary: 'Update group by IDs.'
+      operationId: updateGroup
+      tags:
+        - Group
+      parameters:
+        - name: body
+          in: body
+          description: Group object
+          schema:
+              $ref: 'defSolution.yaml#/definitions/Group'
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+    delete:
+      summary: 'Delete group by IDs.'
+      operationId: deleteGroups
+      tags:
+        - Group
+      responses:
+        '400':
+          description: ''
+          schema:
+            $ref: 'resErrors.yaml#/definitions/BadRequest'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthenticated'
+        '403':
+          description: 'Service does not have required permissions.'
+          schema:
+            $ref: 'resErrors.yaml#/definitions/Unauthorized'
+        '200':
+          description: 'Successful operation.'

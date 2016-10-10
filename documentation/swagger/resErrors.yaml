@@ -1,0 +1,61 @@
+responses:
+  E400:
+    description: ''
+    schema:
+      $ref: '#/definitions/BadRequest'
+  E401:
+    description: 'Token expired or wasn´t send with request.'
+    schema:
+      $ref: '#/definitions/Unauthenticated'
+  E403:
+    description: 'Service does not have required permissions.'
+    schema:
+      $ref: '#/definitions/Unauthorized'
+definitions:
+  AuthenticationFailed:
+    allOf:
+      - $ref: '#/definitions/Error'
+      - example:
+          message: 'Authentication failed.'
+  NotFound:
+    allOf:
+      - $ref: '#/definitions/Error'
+      - example:
+          message: 'Object not found.'
+  Unauthenticated:
+    allOf:
+      - $ref: '#/definitions/Error'
+      - example:
+          message: 'Token expired or wasn´t send with request...'
+          code: 401
+  Unauthorized:
+    allOf:
+      - $ref: '#/definitions/Error'
+      - example:
+          message: 'Service does not have required permissions...'
+          code: 403
+  BadRequest:
+    allOf:
+      - $ref: '#/definitions/Error'
+      - properties:
+          details:
+            type: string
+        example:
+          message: 'The request could not be understood by the server...'
+          details: '{attribute} must be positive integer.'
+          code: 400
+  Error:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+      code:
+        type: integer
+        minimum: 100
+        maximum: 600
+        xml:
+          attribute: true
+    xml:
+      name: error

@@ -1,0 +1,477 @@
+paths:
+ SolutionMetadata:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all metadatas - Solution'
+      operationId: getSolutionMetadata
+      tags:
+        - Metadata
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defGeneral.yaml#/definitions/Metadata'
+            xml:
+              wrapped: true
+              name: metadatas
+          examples:
+            - metadata:
+               name: "usedBy"
+               value: "frycjiri"
+            - metadata:
+               name: "reason"
+               value: "testing"
+    delete:
+      summary: 'Remove metadata by name - Solution'
+      operationId: removeSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: query
+          type: string
+          description: 'Name of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Add metadata - Solution'
+      operationId: addSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Update metadata - Solution'
+      operationId: updateSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+
+ GroupMetadata:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all metadatas - Group'
+      operationId: getSolutionMetadata
+      tags:
+        - Metadata
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defGeneral.yaml#/definitions/Metadata'
+            xml:
+              wrapped: true
+              name: metadatas
+          examples:
+            - metadata:
+               name: "usedBy"
+               value: "frycjiri"
+            - metadata:
+               name: "reason"
+               value: "testing"
+    delete:
+      summary: 'Remove metadata by name - Group'
+      operationId: removeSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: query
+          type: string
+          description: 'Name of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Add metadata - Group'
+      operationId: addSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Update metadata - Group'
+      operationId: updateSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+
+ EntityMetadata:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: group_id
+        type: integer
+        in: path
+        description: 'ID of group.'
+        format: 'int32'
+        minimum: 0
+      - name: entity_id
+        type: integer
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all metadatas - Entity'
+      operationId: getSolutionMetadata
+      tags:
+        - Metadata
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defGeneral.yaml#/definitions/Metadata'
+            xml:
+              wrapped: true
+              name: metadatas
+          examples:
+            - metadata:
+               name: "usedBy"
+               value: "frycjiri"
+            - metadata:
+               name: "reason"
+               value: "testing"
+    delete:
+      summary: 'Remove metadata by name - Entity'
+      operationId: removeSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: query
+          type: string
+          description: 'Name of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Add metadata - Entity'
+      operationId: addSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Update metadata - Entity'
+      operationId: updateSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+
+ SuiteMetadata:
+    parameters:
+      - name: solution_id
+        type: integer
+        in: path
+        description: 'ID of solution.'
+        format: 'int32'
+        minimum: 0
+      - name: suite_id
+        type: integer
+        in: path
+        description: 'ID of suite.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all metadatas - Suite'
+      operationId: getSolutionMetadata
+      tags:
+        - Metadata
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              $ref: 'defGeneral.yaml#/definitions/Metadata'
+            xml:
+              wrapped: true
+              name: metadatas
+          examples:
+            - metadata:
+               name: "usedBy"
+               value: "frycjiri"
+            - metadata:
+               name: "reason"
+               value: "testing"
+    delete:
+      summary: 'Remove metadata by name - Suite'
+      operationId: removeSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: query
+          type: string
+          description: 'Name of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Add metadata - Suite'
+      operationId: addSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '200':
+          description: 'Successful operation.'
+    put:
+      summary: 'Update metadata - Suite'
+      operationId: updateSolutionMetadata
+      tags:
+        - Metadata
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 'Name of metadata.'
+          required: true
+        - name: value
+          in: formData
+          type: string
+          description: 'Value of metadata.'
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: 'Metadata with this name wasn´t found.'
+        '200':
+          description: 'Successful operation.'
+

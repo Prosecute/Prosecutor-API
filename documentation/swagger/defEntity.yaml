@@ -1,0 +1,57 @@
+definitions:
+  Entity:
+    type: object
+    xml:
+      name: entity
+    properties:
+      solution_id:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectID'
+         -  xml:
+              attribute: true
+      group_id:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectID'
+         -  xml:
+              attribute: true
+      entity_id:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectID'
+         -  xml:
+              attribute: true
+      name:
+        allOf:
+         - $ref: 'defGeneral.yaml#/definitions/ObjectName'
+         - xml:
+            attribute: true
+    example:
+      solution_id: 54
+      group_id: 4
+      entity_id: 5
+      name: 'Jack Walter'
+  Urn:
+    type: object
+    xml:
+      name: urn
+    required:
+      - isFolder
+      - value
+    properties:
+      isFolder:
+        type: boolean
+        xml:
+          attribute: true
+      value:
+        type: string
+        xml:
+          attribute: true
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/URN'
+    example:
+      isFolder: true
+      value: 'test'
+      content:
+        - isFolder: false
+          value: 'pic.png'

@@ -1,0 +1,517 @@
+paths:
+  MinimalistDef:
+    get:
+      summary: 'Get all minimalist objects.'
+      operationId: listMinimalist
+      consumes:
+        - '*/*'
+      produces:
+        - text/plain
+        - application/xml
+        - application/json
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              type: integer
+    post:
+      summary: 'Create new minimalist.'
+      operationId: createMinimalist
+      consumes:
+        - '*/*'
+      produces:
+        - text/plain
+        - application/xml
+        - application/json
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: integer
+            xml:
+              name: minimalist
+
+  Minimalist:
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        in: path
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    delete:
+      summary: 'Remove minimalist by ID'
+      operationId: removeMinimalist
+      consumes:
+        - '*/*'
+      produces:
+        - text/plain
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+
+  MinimalistUpload:
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        in: path
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    post:
+      summary: 'Upload new entity with files'
+      operationId: uploadMinimalistEntity
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - text/plain
+        - application/xml
+        - application/json
+      parameters:
+        - format: binary
+          type: string
+          name: "files"
+          in: body
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: integer
+            xml:
+              name: entity
+  MinimalistEntityDef:
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        in: path
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Get all entities in minimalist by ID.'
+      operationId: getMinimalistEntities
+      produces:
+        - text/plain
+        - application/xml
+        - application/json
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: array
+            items:
+              - type: integer
+                xml:
+                  name: entity
+            xml:
+              name: entities
+              wrapped: true
+    post:
+      summary: 'Create new entity without upload.'
+      operationID: createMinimalistEntity
+      produces:
+        - text/plain
+        - application/xml
+        - application/json
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+          schema:
+            type: integer
+            xml:
+              name: entity
+  MinimalistEntity:
+    parameters:
+      - name: id
+        type: integer
+        required: true
+        in: path
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+      - name: entityID
+        type: integer
+        required: true
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    delete:
+      summary: 'Remove entity by ID.'
+      operationID: deleteMinimalistEntity
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  MinimalistEntityFile:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+      - name: entityID
+        type: integer
+        required: true
+        in: path
+        description: 'ID of entity.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Download file by Name.'
+      operationID: downloadMinimalistFile
+      parameters:
+        - type: string
+          name: "filename"
+          in: query
+          required: true
+      produces:
+        - '*/*'
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Upload file.'
+      operationID: uploadMinimalistFile
+      parameters:
+        - type: string
+          name: "filename"
+          in: query
+          required: true
+        - type: file
+          name: "file"
+          in: body
+          required: true
+      consumes:
+        - '*/*'
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Remove file by Name.'
+      operationID: deleteMinimalistFile
+      parameters:
+        - type: string
+          name: "filename"
+          in: query
+          required: true
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  MinimalistCompareAgainst:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'List all minimalist compared againsts.'
+      operationID: listCompareMinimalist
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    post:
+      summary: 'Add minimalist to compare list.'
+      operationID: addCompareMinimalist
+      tags:
+        - Minimalist
+      parameters:
+        - type: integer
+          name: "minimalistID"
+          in: query
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+    delete:
+      summary: 'Remove minimalist from compared list'
+      operationID: deleteCompareMinimalist
+      tags:
+        - Minimalist
+      parameters:
+        - type: integer
+          name: "minimalistID"
+          in: query
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  MinimalistRun:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Run minimalist asynchronously.'
+      operationID: runMinimalist
+      tags:
+        - Minimalist
+      parameters:
+        - type: string
+          name: "callback"
+          description: "[URL] If set. Then will call this url with result."
+          in: query
+        - type: string
+          name: "callbackMIME"
+          description: "Requested content type of callback."
+          in: query
+        - type: integer
+          name: "callbackType"
+          in: query
+          description: "GET,POST,PUT   Default: POST"
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  MinimalistRunSync:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Run minimalist and return report.'
+      operationID: runSyncMinimalist
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+  MinimalistReport:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    get:
+      summary: 'Return report of last run.'
+      operationID: getReportMinimalist
+      tags:
+        - Minimalist
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+        '204':
+          description: 'Successful operation.'
+  MinimalistSettings:
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        required: true
+        description: 'ID of minimalist.'
+        format: 'int32'
+        minimum: 0
+    post:
+      summary: 'Set settings by ID.'
+      operationID: setSettingMinimalist
+      tags:
+        - Minimalist
+      parameters:
+        - type: string
+          name: "category"
+          enum:
+            - "sourcecode"
+          in: query
+          required: true
+        - type: string
+          name: "name"
+          enum:
+            - "java"
+          in: query
+          required: true
+        - type: string
+          name: "version"
+          in: query
+          required: true
+        - type: string
+          name: "mode"
+          enum:
+            - "tokencompare"
+          in: query
+          required: true
+      responses:
+        '400':
+          description: 'Bad request.'
+        '401':
+          description: 'Token expired or wasn´t send with request.'
+        '403':
+          description: 'Service does not have required permissions.'
+        '404':
+          description: ''
+        '200':
+          description: 'Successful operation.'
+
+
+
+
+
+

@@ -1,0 +1,223 @@
+swagger: '2.0'
+info:
+  version: '0.1'
+  title: 'Prosecutor API'
+  contact:
+    name: 'Jiri Fryc'
+    url: 'https://prosecute.github.io/'
+    email: 'jirifryc.cz@jirifryc.cz'
+  license:
+    name: AGPL v3
+    url: 'https://www.gnu.org/licenses/agpl-3.0.en.html'
+host: 'prosecutor.fel.cvut.cz'
+basePath: '/'
+schemes:
+  - https
+consumes:
+  - application/json
+  - application/xml
+produces:
+  - application/json
+  - application/xml
+securityDefinitions:
+  ServiceAuth:
+     type: 'oauth2'
+     flow: 'application'
+     tokenUrl: '/service/token'
+     scopes:
+       auth: 'Service is granted to access application.'
+       write:solution: 'Can create/update solutions.'
+       read:solution: 'Can access own solutions.'
+       read:all:solution: 'Can access solution of all connected services.'
+       write:all:solution: 'Can create/update solution of all connected services.'
+       read:group: 'Can access own groups.'
+       write:group: 'Can create/update own groups.'
+       write:task: 'Can create/update own tasks.'
+       read:task: 'Can access own tasks. (Only definitions of tasks, for accessing outputs of task is read:report scope needed.)'
+       run:tasks: 'Can initiate start of own tasks.'
+       force:run:tasks: 'Has ability to force start task immediately.'
+       read:report: 'Can access own reports of tasks.'
+
+security:
+  - ServiceAuth:
+    - 'auth'
+tags:
+  - name: Service
+    description: Service operations.
+  - name: Solution
+    description: Solution operations.
+  - name: Group
+    description: 'Group operations.'
+  - name: Task
+    description: 'Task operations.'
+  - name: Suite
+    description: 'Suite operations.'
+  - name: Task Report
+    description: 'Task report operations.'
+  - name: File managment
+    description: 'File managment.'
+  - name: Metadata
+    description: 'Metadata operations.'
+paths:
+  /service/token:
+    get:
+      summary: 'Authenticates service and send him generated token.'
+      operationId: tokenService
+      parameters:
+        - type: string
+          name: grant_type
+          default: client_credentials
+          description: 'Must be client_credentials.'
+          required: true
+          enum:
+            - client_credentials
+          in: formData
+        - type: string
+          name: client_id
+          required: true
+          in: formData
+        - type: string
+          name: client_secret
+          required: true
+          in: formData
+      consumes:
+        - 'application/x-www-form-urlencoded'
+      security: []
+      tags:
+        - Service
+      responses:
+        '200':
+          description: 'Return token for authentication.'
+          schema:
+            $ref: '#/definitions/OAuth'
+        '401':
+          description: Authentication failed.
+          schema:
+            $ref: 'resErrors.yaml#/definitions/AuthenticationFailed'
+
+  /solutions/create:
+    $ref: 'pathSolution.yaml#/paths/SolutionCreate'
+  /solutions/list:
+    $ref: 'pathSolution.yaml#/paths/SolutionList'
+  /solutions/{solution_id}:
+    $ref: 'pathSolution.yaml#/paths/Solution'
+  /solutions/{solution_id}/metadata:
+    $ref: 'pathMetadata.yaml#/paths/SolutionMetadata'
+
+
+  /solutions/{solution_id}/groups/create:
+    $ref: 'pathGroup.yaml#/paths/GroupCreate'
+  /solutions/{solution_id}/groups/list:
+    $ref: 'pathGroup.yaml#/paths/GroupList'
+  /solutions/{solution_id}/groups/{group_id}:
+  #/solutions/{solution_id}/groups/{group_id}/filter:
+    $ref: 'pathGroup.yaml#/paths/Group'
+  /solutions/{solution_id}/groups/{group_id}/metadata:
+    $ref: 'pathMetadata.yaml#/paths/GroupMetadata'
+
+
+  /solutions/{solution_id}/groups/{group_id}/entities:
+    $ref: 'pathEntity.yaml#/paths/EntityDef'
+  #/solutions/{solution_id}/groups/{group_id}/entities/uploadNew:
+  #/solutions/{solution_id}/groups/{group_id}/entities/createFromGit:
+  /solutions/{solution_id}/groups/{group_id}/entities/{entity_id}:
+    $ref: 'pathEntity.yaml#/paths/Entity'
+  /solutions/{solution_id}/groups/{group_id}/entities/{entity_id}/file:
+    $ref: 'pathEntity.yaml#/paths/EntityFile'
+  /solutions/{solution_id}/groups/{group_id}/entities/{entity_id}/upload:
+    $ref: 'pathEntity.yaml#/paths/EntityUpload'
+  /solutions/{solution_id}/groups/{group_id}/entities/{entity_id}/metadata:
+    $ref: 'pathMetadata.yaml#/paths/EntityMetadata'
+  #/solutions/{solution_id}/groups/{group_id}/entities/{entity_id}/filter:
+  /solutions/{solution_id}/groups/{group_id}/entities/{entity_id}/folder:
+    $ref: 'pathEntity.yaml#/paths/EntityDirectory'
+
+  /solutions/{solution_id}/suites/:
+    $ref: 'pathSuite.yaml#/paths/SuiteDef'
+  #/solutions/{solution_id}/suites/copy
+  /solutions/{solution_id}/suites/{suite_id}:
+    $ref: 'pathSuite.yaml#/paths/Suite'
+  /solutions/{solution_id}/suites/{suite_id}/metadata:
+    $ref: 'pathMetadata.yaml#/paths/SuiteMetadata'
+  #/solutions/{solution_id}/suites/{suite_id}/filter
+  #/solutions/{solution_id}/suites/{suite_id}/type
+  #/solutions/{solution_id}/suites/{suite_id}/sensitivity
+  #/solutions/{solution_id}/suites/{suite_id}/basecode
+
+  #/solutions/{solution_id}/tasks
+  #/solutions/{solution_id}/tasks/{task_id}
+  #/solutions/{solution_id}/tasks/{task_id}/groups
+  #/solutions/{solution_id}/tasks/{task_id}/suites
+  #/solutions/{solution_id}/tasks/{task_id}/run
+  #/solutions/{solution_id}/tasks/{task_id}/runSync
+  #/solutions/{solution_id}/tasks/{task_id}/reports/latest
+  #/solutions/{solution_id}/tasks/{task_id}/reports/{report_id}
+  #/solutions/{solution_id}/tasks/{task_id}/reports
+
+
+  #/solutions/{solution_id}/reports/
+  #/solutions/{solution_id}/reports/{report_id}
+  #/solutions/{solution_id}/reports/latest
+
+  /minimalist:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistDef'
+  /minimalist/{id}:
+    $ref: 'pathMinimalist.yaml#/paths/Minimalist'
+  /minimalist/{id}/uploadEntity:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistUpload'
+  /minimalist/{id}/entity:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistEntityDef'
+  /minimalist/{id}/entity/{entityID}:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistEntity'
+  /minimalist/{id}/entity/{entityID}/file:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistEntityFile'
+  /minimalist/{id}/compareAgainst:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistCompareAgainst'
+  /minimalist/{id}/run:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistRun'
+  /minimalist/{id}/runSync:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistRunSync'
+  /minimalist/{id}/report:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistReport'
+  /minimalist/{id}/settings:
+    $ref: 'pathMinimalist.yaml#/paths/MinimalistSettings'
+
+
+
+
+
+
+
+
+definitions:
+  OAuth:
+    type: object
+
+    title: 'OAuth token respond'
+    description: 'Contain token necesery to access application.'
+    required:
+      - token_type
+      - access_token
+    properties:
+      token_type:
+        description: 'Type of token.'
+        default: 'bearer'
+        type: string
+      access_token:
+        description: 'Token itself.'
+        type: string
+    xml:
+      name: oauth
+    example:
+      token_type: 'bearer'
+      access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a'
+
+
+
+
+
+
+
+
+
+

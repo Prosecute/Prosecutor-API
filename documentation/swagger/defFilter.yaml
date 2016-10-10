@@ -1,0 +1,72 @@
+definitions:
+  Filter:
+    type: object
+    properties:
+      restriction_mode:
+        allOf:
+          - $ref: '#/definitions/RestrictionMode'
+          - xml:
+              name: restrictionMode
+      name:
+        $ref: 'defGeneral.yaml#/definitions/ObjectName'
+      filters:
+        type: array
+        items:
+          $ref: '#/definitions/FilteredParameter'
+  FilteredParameter:
+    type: object
+    properties:
+      operation:
+        allOf:
+          - $ref: '#/definitions/RestrictionMode'
+          - xml:
+              name: operation
+              attribute: true
+      value:
+        type: string
+        xml:
+          attribute: true
+      type:
+        type: string
+        enum:
+          - 'modifiedDate'
+          - 'createDate'
+          - 'size'
+  FilteredList:
+    type: object
+    properties:
+      operation:
+        allOf:
+          - $ref: '#/definitions/FilteredOperation'
+          - xml:
+              name: operation
+              attribute: true
+      list:
+        type: array
+        items:
+          - $ref: '#/definitions/FilteredParameter'
+
+  RestrictionMode:
+    type: string
+    enum:
+      - include
+      - exclude
+  FilteredOperation:
+    type: string
+    enum:
+     - 'all'
+     - 'any'
+     - 'none'
+  Operation:
+    type: string
+    enum:
+      - '=='
+      - '!='
+      - '<'
+      - '>'
+      - '<='
+      - '>='
+      - 'startWith'
+      - 'endWith'
+      - 'contains'
+      - 'notContains'
