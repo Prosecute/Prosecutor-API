@@ -5,7 +5,7 @@
 
 | Stav API |
 | -------- |
-| [![API validation](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Prosecute/Prosecutor-API/master/documentation/swagger/swagger.yaml&.png)](https://prosecute.github.io/Swagger/)| 
+| [![API validation](http://u.jirifryc.cz/swag?.png)](https://prosecute.github.io/Swagger/)| 
 
 
 > **Ve vývoji**
