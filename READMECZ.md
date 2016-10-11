@@ -1,7 +1,7 @@
 **[Czech](READMECZ.md)** | [English](README.md)
 
 # Prosecutor API
-[![Build Status](https://travis-ci.org/Prosecute/Prosecutor-API.svg?branch=master)](https://travis-ci.org/Prosecute/Prosecutor-API) [![Dependency Status](https://www.versioneye.com/user/projects/57fb88f9fb0ed200126a4952/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57fb88f9fb0ed200126a4952)
+[![Build Status](https://travis-ci.org/Prosecute/Prosecutor-API.svg?branch=master)](https://travis-ci.org/Prosecute/Prosecutor-API) [![Dependency Status](https://www.versioneye.com/user/projects/57fb88f9fb0ed200126a4952/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57fb88f9fb0ed200126a4952) [![Code Climate](https://codeclimate.com/github/Prosecute/Prosecutor-API/badges/gpa.svg)](https://codeclimate.com/github/Prosecute/Prosecutor-API) [![Test Coverage](https://codeclimate.com/github/Prosecute/Prosecutor-API/badges/coverage.svg)](https://codeclimate.com/github/Prosecute/Prosecutor-API/coverage) [![Issue Count](https://codeclimate.com/github/Prosecute/Prosecutor-API/badges/issue_count.svg)](https://codeclimate.com/github/Prosecute/Prosecutor-API)
 
 | Stav API |
 | -------- |
@@ -15,10 +15,10 @@ Prosecutor API je REST služba pro poskytování centrálního antiplagiátorsk�
 * [Swagger dokumentace (EN)](https://prosecute.github.io/Swagger/)
 
 
-## Ostatní části
- * [Prosecutor Planner](https://github.com/Prosecute/Prosecutor-Planner) 
- * [Barrister](https://github.com/Prosecute/Barrister)
- * Moodle plugin Prosecutor
+## Ostatní části Prosecutoru
+ * [Prosecutor Planner](https://github.com/Prosecute/Prosecutor-Planner) - Plánovač a spouštěč úloh na serveru.
+ * [Barrister](https://github.com/Prosecute/Barrister) - Software na detekci plagiátů.
+ * Moodle plugin Prosecutor - Implementace Prosecutor API pro Moodle.
 
 
 ## Technologie
