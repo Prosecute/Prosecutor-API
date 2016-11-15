@@ -12,6 +12,7 @@ package models;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.List;
 
 @Entity

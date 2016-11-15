@@ -2,16 +2,36 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                           controllers.EmployeeController.index()
+# Service
+POST     /service/token             controllers.ServiceController.token()
+
+
+# Minimalist
+GET        /minimalist                                                 controllers.MinimalistController.list()
+POST       /minimalist                                                 controllers.MinimalistController.list()
+DELETE     /minimalist/$id<[0-9]+>                                     controllers.MinimalistController.list()
+POST       /minimalist/$id<[0-9]+>/uploadEntity                        controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/entity                              controllers.MinimalistController.list()
+POST       /minimalist/$id<[0-9]+>/entity                              controllers.MinimalistController.list()
+DELETE     /minimalist/$id<[0-9]+>/entity/$entityId<[0-9]+>            controllers.MinimalistController.list()
+DELETE     /minimalist/$id<[0-9]+>/entity/$entityId<[0-9]+>/file       controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/entity/$entityId<[0-9]+>/file       controllers.MinimalistController.list()
+POST       /minimalist/$id<[0-9]+>/entity/$entityId<[0-9]+>/file       controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/compareAgainst                      controllers.MinimalistController.list()
+POST       /minimalist/$id<[0-9]+>/compareAgainst                      controllers.MinimalistController.list()
+DELETE     /minimalist/$id<[0-9]+>/compareAgainst                      controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/run                                 controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/runSync                             controllers.MinimalistController.list()
+GET        /minimalist/$id<[0-9]+>/report                              controllers.MinimalistController.list()
+POST       /minimalist/$id<[0-9]+>/settings                            controllers.MinimalistController.list()
 
 # Routes API Rest
-GET     /employees                  controllers.EmployeeController.list(page: Integer ?= 1, size: Integer ?= 3)
-GET     /employees/$id<[0-9]+>      controllers.EmployeeController.get(id: Integer)
-POST    /employees                  controllers.EmployeeController.create()
-PUT     /employees                  controllers.EmployeeController.update()
-PATCH   /employees                  controllers.EmployeeController.update()
-DELETE  /employees/$id<[0-9]+>      controllers.EmployeeController.delete(id: Integer)
+#GET     /employees                  controllers.EmployeeController.list(page: Integer ?= 1, size: Integer ?= 3)
+#GET     /employees/$id<[0-9]+>      controllers.EmployeeController.get(id: Integer)
+#POST    /employees                  controllers.EmployeeController.create()
+#PUT     /employees                  controllers.EmployeeController.update()
+#PATCH   /employees                  controllers.EmployeeController.update()
+#DELETE  /employees/$id<[0-9]+>      controllers.EmployeeController.delete(id: Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

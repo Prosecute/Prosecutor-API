@@ -28,6 +28,6 @@ public class EntityDAO {
 
     public static List<Entity> list(Service service)
     {
-
+        return null;
     }
 }

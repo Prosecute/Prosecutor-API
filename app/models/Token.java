@@ -13,6 +13,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 
 @Entity

@@ -59,6 +59,7 @@ public class MinimalistController extends ExtendedController {
         if(minimalist==null)
             return notFound();
         MinimalistService.remove(minimalist);
+        return TODO;
     }
 
     public Result uploadEntity(Integer id)
@@ -80,59 +81,68 @@ public class MinimalistController extends ExtendedController {
 
     public Result listEntities(Integer id)
     {
-
+        return TODO;
     }
 
     public Result getEntity(Integer id, Integer entityID)
     {
 
+        return TODO;
     }
 
     public Result createEntity(Integer id)
     {
 
+        return TODO;
     }
     public Result removeEntity(Integer id, Integer entityID)
     {
 
+        return TODO;
     }
     public Result addFile(Integer id, Integer entityID)
     {
 
+        return TODO;
     }
     public Result addFiles(Integer id, Integer entityID)
     {
 
+        return TODO;
     }
     public Result removeFile(Integer id, Integer entityID, String filename)
     {
 
+        return TODO;
     }
 
     public Result compareAgainst(Integer id, Integer againstID)
     {
 
+        return TODO;
     }
     public Result removeCompareAgainst(Integer id, Integer againstID)
     {
 
+        return TODO;
     }
 
     public Result run(Integer id)
     {
-
+        return TODO;
     }
     public Result runSync(Integer id)
     {
-
+        return TODO;
     }
     public Result runWithCallback(Integer id)
     {
 
+        return TODO;
     }
     public Result report(Integer id)
     {
-
+        return TODO;
     }
 
 }
